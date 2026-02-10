@@ -1,33 +1,54 @@
 import 'package:flutter/material.dart';
-
-import 'news_card.dart';
+import 'package:news/apis/api_manager.dart';
+import 'package:news/models/source.dart';
+import 'package:news/ui/utils/extensions/context_extension.dart';
+import 'news_list.dart';
 
 class NewsTab extends StatelessWidget {
   const NewsTab({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        DefaultTabController(
-          length: 3,
-          child: TabBar(
-              tabs: [
-            Text("tab1"),
-            Text("tab2"),
-            Text("tab3"),
-          ]),
-        ),
-        Expanded(child: buildNewListView())
-      ],
+    return FutureBuilder(
+      future: ApiManager.loadNewsSource(),
+      builder: (context, snapshots) {
+        if (snapshots.hasError) {
+          return Center(
+            child: Text(
+              snapshots.error.toString(),
+              style: context.textTheme.labelLarge,
+            ),
+          );
+        } else if (snapshots.hasData) {
+          return buildTabBarList(snapshots.data!);
+        } else {
+          return Center(child: CircularProgressIndicator());
+        }
+      },
     );
   }
 
- Widget buildNewListView() {
-    return ListView.builder(
-      itemCount: 15,
-        itemBuilder: (_,index){
-      return NewsCard();
-    });
- }
+  Widget buildTabBarList(List<Source> sources) {
+    return DefaultTabController(
+      length: sources.length,
+      child: Column(
+        children: [
+          TabBar(
+            tabAlignment: .start,
+            isScrollable: true,
+            tabs: sources.map((source) {
+              return Tab(text: source.name);
+            }).toList(),
+          ),
+          Expanded(
+            child: TabBarView(
+              children: sources
+                  .map((source) => NewsListView(sourceId: source.id!))
+                  .toList(),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }

@@ -3,6 +3,7 @@ import 'package:news/ui/providers/theme_provider.dart';
 import 'package:news/ui/screens/navigation/tabs/news/news_tab.dart';
 import 'package:news/ui/utils/app_assets.dart';
 import 'package:news/ui/utils/app_colors.dart';
+import 'package:news/ui/utils/app_routes.dart';
 import 'package:provider/provider.dart';
 
 class NavigationScreen extends StatefulWidget {
@@ -18,19 +19,26 @@ class _NavigationScreenState extends State<NavigationScreen> {
   Widget build(BuildContext context) {
     themeProvider = Provider.of(context);
     return Scaffold(
-      appBar: AppBar(title: Text("General")),
+      appBar: AppBar(
+        title: Text("General"),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.push(context, AppRoutes.searchScreen);
+            },
+            icon: ImageIcon(AssetImage(AppAssets.searchIcon)),
+          ),
+        ],
+      ),
       drawer: buildDrawer(),
       body: NewsTab(),
     );
   }
 
   Widget buildDrawer() {
-    var border=OutlineInputBorder(
+    var border = OutlineInputBorder(
       borderRadius: BorderRadius.circular(16),
-      borderSide: BorderSide(
-        width: 1,
-        color: AppColors.white
-      )
+      borderSide: BorderSide(width: 1, color: AppColors.white),
     );
     return Drawer(
       backgroundColor: AppColors.black,
@@ -62,14 +70,14 @@ class _NavigationScreenState extends State<NavigationScreen> {
                   thickness: 1.5,
                 ),
                 buildDrawerActions(AppAssets.modeIcon, "Theme"),
-                SizedBox(height:MediaQuery.of(context).size.height * .01, ),
+                SizedBox(height: MediaQuery.of(context).size.height * .01),
                 DropdownButtonFormField(
                   initialValue: themeProvider.themeMode,
                   decoration: InputDecoration(
                     border: border,
                     focusedBorder: border,
                     disabledBorder: border,
-                    enabledBorder: border
+                    enabledBorder: border,
                   ),
                   iconDisabledColor: AppColors.white,
                   iconEnabledColor: AppColors.white,
@@ -96,7 +104,11 @@ class _NavigationScreenState extends State<NavigationScreen> {
                     if (value != null) themeProvider.changeMode(value);
                   },
                 ),
-                Divider(thickness: 1.5, height: MediaQuery.of(context).size.height*.056,color: AppColors.white,),
+                Divider(
+                  thickness: 1.5,
+                  height: MediaQuery.of(context).size.height * .056,
+                  color: AppColors.white,
+                ),
                 buildDrawerActions(AppAssets.languageIcon, "Language"),
               ],
             ),

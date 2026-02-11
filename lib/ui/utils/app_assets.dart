@@ -19,4 +19,5 @@ abstract final class AppAssets {
   static const String homeIcon  = '${_base}Home 1.png';
   static const String languageIcon  = '${_base}language_icon.png';
   static const String modeIcon  = '${_base}mode_icon.png';
+  static const String searchIcon  = '${_base}search.png';
 }

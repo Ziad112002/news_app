@@ -8,13 +8,13 @@ abstract final class AppThemes {
     appBarTheme: AppBarThemeData(
       backgroundColor: AppColors.white,
       iconTheme: IconThemeData(color: AppColors.black),
-
       centerTitle: true,
       titleTextStyle: TextStyle(
         fontSize: 20,
         color: AppColors.black,
         fontWeight: FontWeight.w500,
       ),
+      actionsIconTheme: IconThemeData(color: AppColors.black),
     ),
     tabBarTheme: TabBarThemeData(
       labelStyle: TextStyle(
@@ -51,7 +51,13 @@ abstract final class AppThemes {
         color: AppColors.grey,
         fontWeight: FontWeight.w500,
       ),
+        labelMedium:  TextStyle(
+          fontSize: 20,
+          color: AppColors.black,
+          fontWeight: FontWeight.w500,
+        )
     ),
+
   );
   static ThemeData darkTheme = ThemeData(
     primaryColor: AppColors.black,
@@ -65,6 +71,7 @@ abstract final class AppThemes {
         color: AppColors.white,
         fontWeight: FontWeight.w500,
       ),
+      actionsIconTheme: IconThemeData(color: AppColors.white),
     ),
     tabBarTheme: TabBarThemeData(
       overlayColor: WidgetStatePropertyAll(AppColors.white.withAlpha(50)),
@@ -101,6 +108,12 @@ abstract final class AppThemes {
         color: AppColors.grey,
         fontWeight: FontWeight.w500,
       ),
+      labelMedium:  TextStyle(
+        fontSize: 20,
+        color: AppColors.white,
+        fontWeight: FontWeight.w500,
+      )
     ),
+
   );
 }

@@ -35,6 +35,7 @@ class NewsCard extends StatelessWidget {
                 height: context.height * .25,
                 width: double.infinity,
                 fit: BoxFit.cover,
+
               ),
             ),
             10.verticalSpace(),

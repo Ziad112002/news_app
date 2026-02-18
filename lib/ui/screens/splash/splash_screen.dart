@@ -15,20 +15,21 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration(seconds: 2),(){
-      Navigator.push(context, AppRoutes.navigationScreen);
+    Future.delayed(Duration(seconds: 2), () {
+      Navigator.push(context, AppRoutes.categoriesScreen);
     });
   }
+
   @override
   Widget build(BuildContext context) {
-    ThemeProvider provider=Provider.of(context);
+    ThemeProvider provider = Provider.of(context);
     return Scaffold(
       body: Image.asset(
-        provider.isLightMode?AppAssets.splash:AppAssets.splashDark,
+        provider.isLightMode ? AppAssets.splash : AppAssets.splashDark,
         fit: BoxFit.cover,
         height: double.infinity,
         width: double.infinity,
-      )
+      ),
     );
   }
 }

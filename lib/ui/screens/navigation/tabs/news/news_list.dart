@@ -18,7 +18,7 @@ class NewsListView extends StatelessWidget {
           return Center(
             child: Text(
               snapshot.error.toString(),
-              style: context.textTheme.labelLarge,
+              style: context.textTheme.displayMedium,
             ),
           );
         } else if (snapshot.hasData) {

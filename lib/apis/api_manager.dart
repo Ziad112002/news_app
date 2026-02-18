@@ -5,7 +5,7 @@ import 'package:news/models/source.dart';
 import 'package:news/models/sources_response.dart';
 
 abstract final class ApiManager {
-  static const apiKey = "a291690d154149569a2beed9c32a3662";
+  static const apiKey = "f5166805f3194905b31f56ec89dc5728";
   static const baseUrl = "https://newsapi.org/";
   static const sourceEndpoint = "v2/top-headlines/sources";
   static const articleEndpoint = "v2/everything";
@@ -28,7 +28,7 @@ abstract final class ApiManager {
   static Future<List<Article>> loadNewsArticles(String sourceId) async {
     final dio = Dio();
     Response response = await dio.get(
-      "$baseUrl$articleEndpoint?sources=$sourceId&apiKey=a291690d154149569a2beed9c32a3662",
+      "$baseUrl$articleEndpoint?apiKey=$apiKey&sources=$sourceId",
     );
     if (response.statusCode! >= 200 && response.statusCode! < 300) {
       Map<String, dynamic> json = response.data;

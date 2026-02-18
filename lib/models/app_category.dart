@@ -23,7 +23,7 @@ class AppCategory {
       darkImageUrl: AppAssets.businessDark,
     ),
     AppCategory(
-      name: "Sport",
+      name: "Sports",
       lightImageUrl: AppAssets.sport,
       darkImageUrl: AppAssets.sportDark,
     ),

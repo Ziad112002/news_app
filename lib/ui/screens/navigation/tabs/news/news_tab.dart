@@ -16,7 +16,6 @@ class NewsTab extends StatefulWidget {
 
 class _NewsTabState extends State<NewsTab> {
   late NewsViewModel viewModel;
-  // NewsViewModel newsViewModel= NewsViewModel();
 
   @override
   void initState() {
@@ -24,20 +23,11 @@ class _NewsTabState extends State<NewsTab> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       viewModel.loadSources(widget.categoryName);
     });
-    // newsViewModel.loadSources(widget.categoryName);
   }
 
   @override
   Widget build(BuildContext context) {
-    // return StreamBuilder(
-    //     stream: newsViewModel.controller.stream,
-    //     builder: (context, snapshot){
-    //       if(snapshot.data == null){ // this app
-    //         return Center(child: CircularProgressIndicator());
-    //       }else {
-    //         return buildTabBarList(snapshot.data!);
-    //       }
-    //     });
+
     return ChangeNotifierProvider(
       create: (context) => NewsViewModel(),
       child: Builder(
@@ -49,31 +39,7 @@ class _NewsTabState extends State<NewsTab> {
         },
       ),
     );
-   // return FutureBuilder(
-   //    future: ApiManager.loadNewsSource(widget.categoryName),
-   //    builder: (context, snapshots) {
-   //      if (snapshots.hasError) {
-   //        return Center(
-   //          child: Text(
-   //            snapshots.error.toString(),
-   //            style: context.textTheme.labelLarge,
-   //          ),
-   //        );
-   //      } else if (snapshots.hasData) {
-   //        if (snapshots.data!.isEmpty) {
-   //          return Center(
-   //            child: Text(
-   //              "No news found",
-   //              style: context.textTheme.displayMedium,
-   //            ),
-   //          );
-   //        }
-   //        return buildTabBarList(snapshots.data!);
-   //      } else {
-   //        return Center(child: CircularProgressIndicator());
-   //      }
-   //    },
-   //  );
+
   }
 
   Widget buildTabBarList(List<Source> sources) {
@@ -107,12 +73,8 @@ class _NewsTabState extends State<NewsTab> {
 
 class NewsViewModel extends ChangeNotifier {
   List<Source> sources = [];
-  // StreamController<List<Source>?> controller = StreamController();
-
   Future<void> loadSources(String categoryName) async {
     sources = await ApiManager.loadNewsSource(categoryName);
     notifyListeners();
-    // var sources = await ApiManager.loadNewsSource(categoryName);
-    // controller.add(sources);
   }
 }

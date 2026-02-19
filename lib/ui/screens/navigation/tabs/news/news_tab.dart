@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:news/models/source.dart';
 import 'package:news/ui/utils/extensions/context_extension.dart';
+import 'package:news/ui/utils/rsource.dart';
 import 'package:provider/provider.dart';
 import 'news_list.dart';
 import 'news_view_model.dart';
@@ -29,23 +30,32 @@ class _NewsTabState extends State<NewsTab> {
     return ChangeNotifierProvider(
       create: (context) => NewsViewModel(),
       child: Consumer<NewsViewModel>(
-        //use consumer to make part of screen only rebuild not all of the screen
-        builder: (context, viewModel, _) {
-          this.viewModel = viewModel;
-          if (viewModel.isLoading) {
+        builder: (context,viewModel,_){
+          this.viewModel=viewModel;
+          if(viewModel.sourceApi.status==AppStatus.loading){
             return Center(
-              child: CircularProgressIndicator(color: context.secondaryColor),
-            );
-          } else if (viewModel.errorMessage.isNotEmpty) {
-            return Center(
-              child: Text(
-                viewModel.errorMessage,
-                style: context.textTheme.bodyLarge,
+              child: CircularProgressIndicator(
+                color: context.secondaryColor,
               ),
             );
-          } else {
-            return buildTabBarList(viewModel.sources);
+          }else if( viewModel.sourceApi.status==AppStatus.error){
+            return Center(
+                        child: Text(
+                          viewModel.sourceApi.errorMessage??"error!",
+                          style: context.textTheme.bodyLarge,
+                        ),
+            );
+          }else{
+            return buildTabBarList(viewModel.sourceApi.data??[]);
           }
+          // return viewModel.sources.isEmpty
+          //     ? Center(
+          //         child: Text(
+          //           "No sources available!",
+          //           style: context.textTheme.displayMedium,
+          //         ),
+          //       )
+          //     : buildTabBarList(viewModel.sources);
         },
       ),
     );
@@ -79,3 +89,4 @@ class _NewsTabState extends State<NewsTab> {
     );
   }
 }
+

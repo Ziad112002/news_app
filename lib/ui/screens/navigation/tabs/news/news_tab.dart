@@ -27,19 +27,22 @@ class _NewsTabState extends State<NewsTab> {
 
   @override
   Widget build(BuildContext context) {
-
     return ChangeNotifierProvider(
       create: (context) => NewsViewModel(),
-      child: Builder(
-        builder: (context) {
-          viewModel = Provider.of(context);
+      child: Consumer<NewsViewModel>(
+        builder: (context,viewModel,_){
+          this.viewModel=viewModel;
           return viewModel.sources.isEmpty
-              ? Center(child: Text("No sources available!",style: context.textTheme.displayMedium,))
+              ? Center(
+                  child: Text(
+                    "No sources available!",
+                    style: context.textTheme.displayMedium,
+                  ),
+                ) //use consumer to make part of screen only rebuild not all screen
               : buildTabBarList(viewModel.sources);
         },
       ),
     );
-
   }
 
   Widget buildTabBarList(List<Source> sources) {

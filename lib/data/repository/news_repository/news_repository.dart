@@ -1,5 +1,4 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:news/apis/api_manager.dart';
 import 'package:news/data/repository/news_repository/data_sources/local_data_source.dart';
 import 'package:news/data/repository/news_repository/data_sources/remote_data_source.dart';
 import 'package:news/models/source.dart';

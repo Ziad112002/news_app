@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news/models/source.dart';
 import 'package:news/ui/utils/extensions/context_extension.dart';
-import 'package:news/ui/utils/rsource.dart';
-import 'package:provider/provider.dart';
+import 'package:news/ui/utils/resource.dart';
 import 'news_list.dart';
 import 'news_view_model.dart';
 
@@ -15,7 +15,7 @@ class NewsTab extends StatefulWidget {
 }
 
 class _NewsTabState extends State<NewsTab> {
-  late NewsViewModel viewModel;
+  late NewsViewModel viewModel = NewsViewModel();
 
   @override
   void initState() {
@@ -27,38 +27,49 @@ class _NewsTabState extends State<NewsTab> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => NewsViewModel(),
-      child: Consumer<NewsViewModel>(
-        builder: (context,viewModel,_){
-          this.viewModel=viewModel;
-          if(viewModel.sourceApi.status==AppStatus.loading){
+    return BlocProvider(
+      create: (context) => viewModel,
+      child: BlocBuilder<NewsViewModel, NewsState>(
+        builder: (context, state) {
+          if (state.sourceApi.status == AppStatus.loading) {
             return Center(
-              child: CircularProgressIndicator(
-                color: context.secondaryColor,
+              child: CircularProgressIndicator(color: context.secondaryColor),
+            );
+          } else if (state.sourceApi.status == AppStatus.error) {
+            return Center(
+              child: Text(
+                state.sourceApi.errorMessage ?? "error!",
+                style: context.textTheme.bodyLarge,
               ),
             );
-          }else if( viewModel.sourceApi.status==AppStatus.error){
-            return Center(
-                        child: Text(
-                          viewModel.sourceApi.errorMessage??"error!",
-                          style: context.textTheme.bodyLarge,
-                        ),
-            );
-          }else{
-            return buildTabBarList(viewModel.sourceApi.data??[]);
+          } else {
+            return buildTabBarList(state.sourceApi.data ?? []);
           }
-          // return viewModel.sources.isEmpty
-          //     ? Center(
-          //         child: Text(
-          //           "No sources available!",
-          //           style: context.textTheme.displayMedium,
-          //         ),
-          //       )
-          //     : buildTabBarList(viewModel.sources);
         },
       ),
     );
+    // return ChangeNotifierProvider(
+    //   create: (context) => NewsViewModel(),
+    //   child: Consumer<NewsViewModel>(
+    //     builder: (context,viewModel,_){
+    //       this.viewModel=viewModel;
+    //       if(viewModel.sourceApi.status==AppStatus.loading){
+    //         return Center(
+    //           child: CircularProgressIndicator(  // this code using Provider
+    //             color: context.secondaryColor,
+    //           ),
+    //         );
+    //       }else if( viewModel.sourceApi.status==AppStatus.error){
+    //         return Center(
+    //                     child: Text(
+    //                       viewModel.sourceApi.errorMessage??"error!",
+    //                       style: context.textTheme.bodyLarge,
+    //                     ),
+    //         );
+    //       }else{
+    //         return buildTabBarList(viewModel.sourceApi.data??[]);
+    //       }
+
   }
 
   Widget buildTabBarList(List<Source> sources) {
@@ -89,4 +100,3 @@ class _NewsTabState extends State<NewsTab> {
     );
   }
 }
-

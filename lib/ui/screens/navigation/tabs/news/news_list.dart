@@ -38,7 +38,9 @@ class NewsListView extends StatelessWidget {
             },
           );
         } else {
-          return Center(child: CircularProgressIndicator());
+          return Center(child: CircularProgressIndicator(
+            color: context.secondaryColor,
+          ));
         }
       },
     );

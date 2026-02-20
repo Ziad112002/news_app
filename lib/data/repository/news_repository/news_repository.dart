@@ -11,11 +11,11 @@ class NewsRepository {
      final List<ConnectivityResult> connectivityResult = await (connectivity.checkConnectivity());
      if (connectivityResult.contains(ConnectivityResult.mobile)||connectivityResult.contains(ConnectivityResult.wifi)) {
        var sources =await remoteDataSource.loadNewsSource(categoryName);
-       localDataSource.saveSources(sources);
+       localDataSource.saveSources(categoryName,sources);
        return sources;
      }else{
-       var sources =localDataSource.loadNewsSource(categoryName);
-      return sources;
+       var sources =await localDataSource.loadNewsSource(categoryName);
+      return  sources??[];
      }
    }
 

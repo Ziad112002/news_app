@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:news/apis/api_manager.dart';
+import 'package:news/data/repository/news_repository/news_repository.dart';
 import 'package:news/models/article.dart';
 import 'package:news/ui/utils/extensions/context_extension.dart';
 
 import 'news_card.dart';
 
 class NewsListView extends StatelessWidget {
-  const NewsListView({super.key, required this.sourceId});
+   NewsListView({super.key, required this.sourceId});
   final String sourceId;
-
+final NewsRepository newsRepository =NewsRepository();
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: ApiManager.loadNewsArticles(sourceId),
+      future: newsRepository.loadNewsArticles(sourceId),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return Center(

@@ -2,14 +2,15 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:news/models/source.dart';
 
 class LocalDataSource {
+  String boxName="news";
   Future<List<Source>?> loadNewsSource(String categoryName) async {
-    var box = await Hive.openBox("news");
+    var box = await Hive.openBox(boxName);
     List<Source>? sources = box.get(categoryName);
     return sources;
   }
 
   Future<void> saveSources(String category, List<Source> sources) async {
-    var box = await Hive.openBox("news");
+    var box = await Hive.openBox(boxName);
     box.put(category, sources);
   }
 }

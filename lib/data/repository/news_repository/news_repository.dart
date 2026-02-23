@@ -28,9 +28,11 @@ LocalDataArticles localDataArticles=LocalDataArticles();
      if (connectivityResult.contains(ConnectivityResult.mobile)||connectivityResult.contains(ConnectivityResult.wifi)) {
        var articles =await remoteDataArticles.loadNewsArticles(sourceId);
       localDataArticles.saveArticles(sourceId, articles);
+      Article.currentArticles=articles;
        return articles;
      }else{
        var articles =await localDataArticles.loadNewsArticles(sourceId);
+       Article.currentArticles=articles??[];
        return  articles??[];
      }
 

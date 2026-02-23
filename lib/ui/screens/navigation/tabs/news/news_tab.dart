@@ -73,15 +73,12 @@ class _NewsTabState extends State<NewsTab> {
   }
 
   Widget buildTabBarList(List<Source> sources) {
-    // Source.currentNewsId = sources[0].id;
     return DefaultTabController(
       length: sources.length,
       child: Column(
         children: [
           TabBar(
-            onTap: (index) {
-              Source.currentNewsId = sources[index].id;
-            },
+
             tabAlignment: .start,
             isScrollable: true,
             tabs: sources.map((source) {

@@ -6,7 +6,6 @@ class Source {
   String? category;
   String? language;
   String? country;
-static String? currentNewsId;
   Source({
     this.id,
     this.name,

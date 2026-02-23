@@ -1,6 +1,7 @@
 import 'source.dart';
 
 class Article {
+  static List<Article> currentArticles=[];
   Source? source;
   String? author;
   String? title;
@@ -24,7 +25,9 @@ class Article {
   factory Article.fromJson(Map<String, dynamic> json) {
     return Article(
       source: json['source'] != null
-          ? Source.fromJson(json['source'] as Map<String, dynamic>)
+          ? Source.fromJson(
+        Map<String, dynamic>.from(json['source'] as Map),
+      )
           : null,
       author: json['author'] as String?,
       title: json['title'] as String?,

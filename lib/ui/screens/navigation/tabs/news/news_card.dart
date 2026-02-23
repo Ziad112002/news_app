@@ -88,11 +88,13 @@ class NewsCard extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadiusGeometry.all(Radius.circular(8)),
-            child: Image.network(
-              article.urlToImage ?? "",
+            child: CachedNetworkImage(
+              imageUrl: article.urlToImage ?? "",
+              errorWidget: (context, url, error) => const Icon(Icons.error_outline, color: Colors.red),
               height: context.height * .25,
               width: double.infinity,
               fit: BoxFit.cover,
+
             ),
           ),
           10.verticalSpace(),

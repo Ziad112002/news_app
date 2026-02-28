@@ -1,6 +1,12 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news/data/mapper/mapper.dart';
+import 'package:news/data/repository/news_repository/data_sources/local_data_source.dart';
+import 'package:news/data/repository/news_repository/data_sources/remote_data_source.dart';
+import 'package:news/data/repository/news_repository/news_repository.dart';
 import 'package:news/domain/model/source.dart';
+import 'package:news/domain/use_case/load_source_use_case.dart';
 import 'package:news/ui/utils/extensions/context_extension.dart';
 import 'package:news/ui/utils/resource.dart';
 import 'news_list.dart';
@@ -15,7 +21,16 @@ class NewsTab extends StatefulWidget {
 }
 
 class _NewsTabState extends State<NewsTab> {
-  late NewsViewModel viewModel = NewsViewModel();
+  late NewsViewModel viewModel = NewsViewModel(
+    loadSourceUseCase: LoadSourceUseCase(
+      newsRepository: NewsRepositoryImpl(
+        localDataSource: LocalDataSourceImpl(),
+        remoteDataSource: RemoteDataSourceImpl(),
+        connectivity: Connectivity(),
+        mapper: Mapper(),
+      ),
+    ),
+  );
 
   @override
   void initState() {
@@ -69,7 +84,6 @@ class _NewsTabState extends State<NewsTab> {
     //       }else{
     //         return buildTabBarList(viewModel.sourceApi.data??[]);
     //       }
-
   }
 
   Widget buildTabBarList(List<Source> sources) {
@@ -78,7 +92,6 @@ class _NewsTabState extends State<NewsTab> {
       child: Column(
         children: [
           TabBar(
-
             tabAlignment: .start,
             isScrollable: true,
             tabs: sources.map((source) {

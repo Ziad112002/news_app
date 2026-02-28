@@ -1,8 +1,9 @@
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:news/data/models/remote_source.dart';
 
-class LocalDataSource {
+class LocalDataSourceImpl extends LocalDataSource {
   String boxName = "news";
+  @override
   Future<List<RemoteSource>?> loadNewsSource(String categoryName) async {
     var box = await Hive.openBox(boxName);
     final data = box.get(categoryName);
@@ -11,6 +12,7 @@ class LocalDataSource {
     return sources;
   }
 
+  @override
   Future<void> saveSources(String category, List<RemoteSource> sources) async {
     var box = await Hive.openBox(boxName);
     box.put(category, sources);
@@ -31,4 +33,8 @@ class SourceAdapter extends TypeAdapter<RemoteSource> {
   void write(BinaryWriter writer, RemoteSource obj) {
     writer.write(obj.toJson());
   }
+}
+abstract class LocalDataSource {
+  Future<List<RemoteSource>?> loadNewsSource(String categoryName);
+  Future<void> saveSources(String category, List<RemoteSource> sources);
 }

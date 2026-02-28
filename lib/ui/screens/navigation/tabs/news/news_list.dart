@@ -1,4 +1,8 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:news/data/mapper/mapper.dart';
+import 'package:news/data/repository/news_repository/data_sources/local_data_source.dart';
+import 'package:news/data/repository/news_repository/data_sources/remote_data_source.dart';
 import 'package:news/data/repository/news_repository/news_repository.dart';
 import 'package:news/data/models/article.dart';
 import 'package:news/ui/utils/extensions/context_extension.dart';
@@ -6,9 +10,14 @@ import 'package:news/ui/utils/extensions/context_extension.dart';
 import 'news_card.dart';
 
 class NewsListView extends StatelessWidget {
-   NewsListView({super.key, required this.sourceId});
+  NewsListView({super.key, required this.sourceId});
   final String sourceId;
-final NewsRepository newsRepository =NewsRepository();
+  final NewsRepositoryImpl newsRepository = NewsRepositoryImpl(
+    localDataSource: LocalDataSourceImpl(),
+    remoteDataSource: RemoteDataSourceImpl(),
+    connectivity: Connectivity(),
+    mapper: Mapper(),
+  );
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -38,9 +47,9 @@ final NewsRepository newsRepository =NewsRepository();
             },
           );
         } else {
-          return Center(child: CircularProgressIndicator(
-            color: context.secondaryColor,
-          ));
+          return Center(
+            child: CircularProgressIndicator(color: context.secondaryColor),
+          );
         }
       },
     );

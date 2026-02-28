@@ -6,8 +6,9 @@ import 'package:news/ui/utils/resource.dart';
 class NewsViewModel extends Cubit<NewsState> {
 
   // Resource<List<Source>> sourceApi=Resource.initial();
-  NewsViewModel():super(NewsState(Resource.initial()));
- LoadSourceUseCase loadSourceUseCase=LoadSourceUseCase();
+  NewsViewModel({required this.loadSourceUseCase}):super(NewsState(Resource.initial()));
+ LoadSourceUseCase loadSourceUseCase;
+
 
   Future<void> loadSources(String categoryName) async {
     try {

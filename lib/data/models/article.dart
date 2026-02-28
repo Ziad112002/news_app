@@ -1,8 +1,8 @@
-import 'source.dart';
+import 'remote_source.dart';
 
 class Article {
   static List<Article> currentArticles=[];
-  Source? source;
+  RemoteSource? source;
   String? author;
   String? title;
   String? description;
@@ -25,7 +25,7 @@ class Article {
   factory Article.fromJson(Map<String, dynamic> json) {
     return Article(
       source: json['source'] != null
-          ? Source.fromJson(
+          ? RemoteSource.fromJson(
         Map<String, dynamic>.from(json['source'] as Map),
       )
           : null,

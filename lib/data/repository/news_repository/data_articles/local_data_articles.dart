@@ -1,11 +1,13 @@
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:news/models/article.dart';
+import 'package:news/data/models/article.dart';
 
 class LocalDataArticles {
   String boxName = "news";
   Future<List<Article>?> loadNewsArticles(String sourceId) async {
     var box = await Hive.openBox(boxName);
-    List<Article>? articles = box.get(sourceId);
+    final data = box.get(sourceId);
+    if (data == null) return null;
+    List<Article>? articles = (data as List<dynamic>).cast<Article>();
 
     return articles;
   }

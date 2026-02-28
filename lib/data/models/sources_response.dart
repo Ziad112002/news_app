@@ -1,9 +1,9 @@
 
-import 'source.dart';
+import 'remote_source.dart';
 
 class SourcesResponse {
    String? status;
-   List<Source>? sources;
+   List<RemoteSource>? sources;
 
   SourcesResponse({
     this.status,
@@ -14,7 +14,7 @@ class SourcesResponse {
     return SourcesResponse(
       status: json['status'] as String?,
       sources: (json['sources'] as List<dynamic>?)
-          ?.map((item) => Source.fromJson(item as Map<String, dynamic>))
+          ?.map((item) => RemoteSource.fromJson(item as Map<String, dynamic>))
           .toList(),
     );
   }

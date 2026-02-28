@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:news/models/source.dart';
+import 'package:news/data/models/remote_source.dart';
 import 'package:news/ui/utils/extensions/context_extension.dart';
 import 'package:news/ui/utils/resource.dart';
 import 'news_list.dart';
@@ -72,7 +72,7 @@ class _NewsTabState extends State<NewsTab> {
 
   }
 
-  Widget buildTabBarList(List<Source> sources) {
+  Widget buildTabBarList(List<RemoteSource> sources) {
     return DefaultTabController(
       length: sources.length,
       child: Column(

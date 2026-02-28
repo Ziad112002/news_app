@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:news/ui/providers/int_extension.dart';
 import 'package:news/ui/utils/app_assets.dart';
 import 'package:news/ui/utils/extensions/context_extension.dart';
-import '../../../models/article.dart';
+import '../../../data/models/article.dart';
 import '../navigation/tabs/news/news_card.dart';
 
 class SearchScreen extends StatefulWidget {

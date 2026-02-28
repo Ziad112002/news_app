@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:news/models/article.dart';
+import 'package:news/data/models/article.dart';
 import 'package:news/ui/providers/int_extension.dart';
 import 'package:news/ui/utils/extensions/context_extension.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -31,20 +31,13 @@ class NewsCard extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadiusGeometry.all(Radius.circular(8)),
-           child:// Image.network(
-              //   article.urlToImage ?? "",
-              //   height: context.height * .25,
-              //   width: double.infinity,
-              //   fit: BoxFit.cover,
-              //
-              // ),
-              CachedNetworkImage(
+              child: CachedNetworkImage(
                 imageUrl: article.urlToImage ?? "",
-                errorWidget: (context, url, error) => const Icon(Icons.error_outline, color: Colors.red),
+                errorWidget: (context, url, error) =>
+                    const Icon(Icons.error_outline, color: Colors.red),
                 height: context.height * .25,
                 width: double.infinity,
                 fit: BoxFit.cover,
-
               ),
             ),
             10.verticalSpace(),
@@ -59,12 +52,12 @@ class NewsCard extends StatelessWidget {
               children: [
                 Expanded(
                   child: Text(
-                    "By : ${article.author}",
+                    "By : ${article.author ?? "Unknown"}",
                     style: context.textTheme.bodyMedium,
                   ),
                 ),
                 Text(
-                  "${article.publishedAt}",
+                  getDateOnly(article.publishedAt ?? ""),
                   style: context.textTheme.bodyMedium,
                 ),
               ],
@@ -90,11 +83,11 @@ class NewsCard extends StatelessWidget {
             borderRadius: BorderRadiusGeometry.all(Radius.circular(8)),
             child: CachedNetworkImage(
               imageUrl: article.urlToImage ?? "",
-              errorWidget: (context, url, error) => const Icon(Icons.error_outline, color: Colors.red),
+              errorWidget: (context, url, error) =>
+                  const Icon(Icons.error_outline, color: Colors.red),
               height: context.height * .25,
               width: double.infinity,
               fit: BoxFit.cover,
-
             ),
           ),
           10.verticalSpace(),
@@ -111,7 +104,7 @@ class NewsCard extends StatelessWidget {
           ),
           ElevatedButton(
             onPressed: () {
-              openMyLink(article.url??"");
+              openMyLink(article.url ?? "");
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: context.primaryColor,
@@ -129,19 +122,27 @@ class NewsCard extends StatelessWidget {
       ),
     );
   }
+
   Future<void> openMyLink(String url) async {
     final Uri uri = Uri.parse(url);
     try {
       if (await canLaunchUrl(uri)) {
-         await launchUrl(
-          uri,
-          mode: LaunchMode.externalApplication,
-        );
+        await launchUrl(uri, mode: LaunchMode.externalApplication);
       } else {
         throw "couldn't launch the url";
       }
     } on Exception catch (e) {
-      throw"An error occurred: $e" ;
+      throw "An error occurred: $e";
+    }
+  }
+
+  String getDateOnly(String apiString) {
+    try {
+      final dateTime = DateTime.parse(apiString).toLocal();
+      return "${dateTime.year}-${dateTime.month.toString().padLeft(2, '0')}-${dateTime.day.toString().padLeft(2, '0')}";
+      // → "2025-02-14"
+    } catch (e) {
+      return "Invalid date"; // or return apiString.substring(0,10) as fallback
     }
   }
 }

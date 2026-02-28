@@ -1,4 +1,4 @@
-class Source {
+class RemoteSource {
   String? id;
   String? name;
   String? description;
@@ -6,7 +6,7 @@ class Source {
   String? category;
   String? language;
   String? country;
-  Source({
+  RemoteSource({
     this.id,
     this.name,
     this.description,
@@ -16,8 +16,8 @@ class Source {
     this.country,
   });
 
-  factory Source.fromJson(Map<String, dynamic> json) {
-    return Source(
+  factory RemoteSource.fromJson(Map<String, dynamic> json) {
+    return RemoteSource(
       id: json['id'] as String?,
       name: json['name'] as String?,
       description: json['description'] as String?,

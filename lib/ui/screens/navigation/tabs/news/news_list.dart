@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news/data/repository/news_repository/news_repository.dart';
-import 'package:news/models/article.dart';
+import 'package:news/data/models/article.dart';
 import 'package:news/ui/utils/extensions/context_extension.dart';
 
 import 'news_card.dart';

@@ -1,8 +1,8 @@
 import 'package:news/apis/api_manager.dart';
-import 'package:news/models/source.dart';
+import 'package:news/data/models/remote_source.dart';
 
 class RemoteDataSource {
-  Future<List<Source>> loadNewsSource(String categoryName) async {
+  Future<List<RemoteSource>> loadNewsSource(String categoryName) async {
     return ApiManager.loadNewsSource(categoryName);
   }
 }

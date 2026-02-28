@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:news/models/app_category.dart';
+import 'package:news/data/models/app_category.dart';
 import 'package:news/ui/screens/categories/category_card.dart';
 import 'package:news/ui/utils/extensions/context_extension.dart';
 import 'package:news/ui/widgets/app_drawer.dart';

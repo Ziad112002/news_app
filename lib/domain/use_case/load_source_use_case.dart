@@ -1,9 +1,9 @@
 import 'package:news/data/repository/news_repository/news_repository.dart';
-import 'package:news/data/models/remote_source.dart';
+import 'package:news/domain/model/source.dart';
 
 class LoadSourceUseCase {
   NewsRepository newsRepository=NewsRepository();
-  Future<List<RemoteSource>>call(String category){
+  Future<List<Source>>call(String category){
     return newsRepository.loadNewsSource(category);
 
   }

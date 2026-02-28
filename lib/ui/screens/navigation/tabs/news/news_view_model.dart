@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:news/data/models/remote_source.dart';
+import 'package:news/domain/model/source.dart';
 import 'package:news/domain/use_case/load_source_use_case.dart';
 import 'package:news/ui/utils/resource.dart';
 
@@ -27,6 +27,6 @@ class NewsViewModel extends Cubit<NewsState> {
   }
 }
 class NewsState{
-  Resource<List<RemoteSource>> sourceApi=Resource.initial();
+  Resource<List<Source>> sourceApi=Resource.initial();
 NewsState(this.sourceApi);
 }

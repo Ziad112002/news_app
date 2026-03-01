@@ -29,3 +29,7 @@ void initDependencies() => getIt.init();
 //   getIt.registerFactory(() => LoadSourceUseCase( newsRepository: getIt()));
 //   getIt.registerFactory(() => NewsViewModel(loadSourceUseCase: getIt()));
 // }
+// WHY GET_IT?
+//  * 1. Clean Architecture: Separates UI from Logic.
+//  * 2. Testing: Easy to swap real services with Mock versions.
+//  * 3. Performance: Much faster than searching the Widget Tree.

@@ -39,6 +39,12 @@ class NewsRepositoryImpl extends NewsRepository {
     }
   }
 
+
+}
+class NewsArticleRepository{
+  RemoteDataArticles remoteDataArticles = RemoteDataArticles();
+  LocalDataArticles localDataArticles = LocalDataArticles();
+  Connectivity connectivity =Connectivity();
   Future<List<Article>> loadNewsArticles(String sourceId) async {
     final List<ConnectivityResult> connectivityResult = await (connectivity
         .checkConnectivity());

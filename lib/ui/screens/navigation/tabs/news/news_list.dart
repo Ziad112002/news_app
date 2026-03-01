@@ -1,8 +1,5 @@
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:news/data/mapper/sources_mapper.dart';
-import 'package:news/data/repository/news_repository/data_sources/local_data_source.dart';
-import 'package:news/data/repository/news_repository/data_sources/remote_data_source.dart';
+
 import 'package:news/data/repository/news_repository/news_repository.dart';
 import 'package:news/data/models/article.dart';
 import 'package:news/ui/utils/extensions/context_extension.dart';
@@ -12,16 +9,11 @@ import 'news_card.dart';
 class NewsListView extends StatelessWidget {
   NewsListView({super.key, required this.sourceId});
   final String sourceId;
-  final NewsRepositoryImpl newsRepository = NewsRepositoryImpl(
-    localDataSource: LocalDataSourceImpl(),
-    remoteDataSource: RemoteDataSourceImpl(),
-    connectivity: Connectivity(),
-    mapper: SourcesMapper(),
-  );
+  final NewsArticleRepository newsArticleRepository=NewsArticleRepository();
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: newsRepository.loadNewsArticles(sourceId),
+      future: newsArticleRepository.loadNewsArticles(sourceId),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return Center(

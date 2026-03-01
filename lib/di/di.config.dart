@@ -10,9 +10,11 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:connectivity_plus/connectivity_plus.dart' as _i895;
+import 'package:dio/dio.dart' as _i361;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 
+import '../apis/api_client.dart' as _i588;
 import '../data/mapper/sources_mapper.dart' as _i1018;
 import '../data/repository/news_repository/data_sources/local_data_source.dart'
     as _i958;
@@ -31,11 +33,15 @@ extension GetItInjectableX on _i174.GetIt {
     _i526.EnvironmentFilter? environmentFilter,
   }) {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
-    final connectivityModule = _$ConnectivityModule();
+    final getItModule = _$GetItModule();
     gh.factory<_i1018.SourcesMapper>(() => _i1018.SourcesMapper());
-    gh.factory<_i895.Connectivity>(() => connectivityModule.getConnectivity());
+    gh.factory<_i895.Connectivity>(() => getItModule.getConnectivity());
+    gh.factory<_i361.Dio>(() => getItModule.getDio());
     gh.factory<_i958.LocalDataSource>(() => _i958.LocalDataSourceImpl());
-    gh.factory<_i789.RemoteDataSource>(() => _i789.RemoteDataSourceImpl());
+    gh.factory<_i588.ApiClient>(() => _i588.ApiClient(gh<_i361.Dio>()));
+    gh.factory<_i789.RemoteDataSource>(
+      () => _i789.RemoteDataSourceImpl(gh<_i588.ApiClient>()),
+    );
     gh.factory<_i263.NewsRepository>(
       () => _i592.NewsRepositoryImpl(
         localDataSource: gh<_i958.LocalDataSource>(),
@@ -57,4 +63,4 @@ extension GetItInjectableX on _i174.GetIt {
   }
 }
 
-class _$ConnectivityModule extends _i1015.ConnectivityModule {}
+class _$GetItModule extends _i1015.GetItModule {}

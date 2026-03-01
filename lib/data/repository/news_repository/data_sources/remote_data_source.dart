@@ -1,6 +1,7 @@
+import 'package:injectable/injectable.dart';
 import 'package:news/apis/api_manager.dart';
 import 'package:news/data/models/remote_source.dart';
-
+@Injectable(as: RemoteDataSource)
 class RemoteDataSourceImpl extends RemoteDataSource {
   @override
   Future<List<RemoteSource>> loadNewsSource(String categoryName) async {

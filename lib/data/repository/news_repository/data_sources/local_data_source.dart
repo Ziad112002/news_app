@@ -1,6 +1,7 @@
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:injectable/injectable.dart';
 import 'package:news/data/models/remote_source.dart';
-
+@Injectable(as: LocalDataSource)
 class LocalDataSourceImpl extends LocalDataSource {
   String boxName = "news";
   @override

@@ -1,8 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:injectable/injectable.dart';
 import 'package:news/domain/model/source.dart';
 import 'package:news/domain/use_case/load_source_use_case.dart';
 import 'package:news/ui/utils/resource.dart';
-
+@injectable
 class NewsViewModel extends Cubit<NewsState> {
 
   // Resource<List<Source>> sourceApi=Resource.initial();

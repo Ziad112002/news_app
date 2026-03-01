@@ -1,6 +1,7 @@
+import 'package:injectable/injectable.dart';
 import 'package:news/domain/model/source.dart';
 import 'package:news/domain/repository/news_repository.dart';
-
+@injectable
 class LoadSourceUseCase {
   NewsRepository newsRepository;
   LoadSourceUseCase({required this.newsRepository});

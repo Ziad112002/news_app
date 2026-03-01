@@ -1,4 +1,5 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:injectable/injectable.dart';
 import 'package:news/data/mapper/sources_mapper.dart';
 import 'package:news/data/repository/news_repository/data_articles/local_data_articles.dart';
 import 'package:news/data/repository/news_repository/data_articles/remote_data_articles.dart';
@@ -7,7 +8,7 @@ import 'package:news/data/repository/news_repository/data_sources/remote_data_so
 import 'package:news/data/models/article.dart';
 import 'package:news/domain/model/source.dart';
 import 'package:news/domain/repository/news_repository.dart';
-
+@Injectable(as:  NewsRepository)
 class NewsRepositoryImpl extends NewsRepository {
   RemoteDataSource remoteDataSource;
   LocalDataSource localDataSource;

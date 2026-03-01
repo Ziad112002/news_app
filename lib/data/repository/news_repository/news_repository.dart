@@ -1,5 +1,5 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:news/data/mapper/mapper.dart';
+import 'package:news/data/mapper/sources_mapper.dart';
 import 'package:news/data/repository/news_repository/data_articles/local_data_articles.dart';
 import 'package:news/data/repository/news_repository/data_articles/remote_data_articles.dart';
 import 'package:news/data/repository/news_repository/data_sources/local_data_source.dart';
@@ -12,7 +12,7 @@ class NewsRepositoryImpl extends NewsRepository {
   RemoteDataSource remoteDataSource;
   LocalDataSource localDataSource;
   Connectivity connectivity ;
-  Mapper mapper ;
+  SourcesMapper mapper ;
   RemoteDataArticles remoteDataArticles = RemoteDataArticles();
   LocalDataArticles localDataArticles = LocalDataArticles();
   NewsRepositoryImpl({

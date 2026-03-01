@@ -1,6 +1,6 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:news/data/mapper/mapper.dart';
+import 'package:news/data/mapper/sources_mapper.dart';
 import 'package:news/data/repository/news_repository/data_sources/local_data_source.dart';
 import 'package:news/data/repository/news_repository/data_sources/remote_data_source.dart';
 import 'package:news/data/repository/news_repository/news_repository.dart';
@@ -16,7 +16,7 @@ class NewsListView extends StatelessWidget {
     localDataSource: LocalDataSourceImpl(),
     remoteDataSource: RemoteDataSourceImpl(),
     connectivity: Connectivity(),
-    mapper: Mapper(),
+    mapper: SourcesMapper(),
   );
   @override
   Widget build(BuildContext context) {

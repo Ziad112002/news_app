@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:news/data/models/article.dart';
+import 'package:news/domain/model/article.dart';
 import 'package:news/ui/providers/int_extension.dart';
 import 'package:news/ui/utils/extensions/context_extension.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -32,7 +32,7 @@ class NewsCard extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadiusGeometry.all(Radius.circular(8)),
               child: CachedNetworkImage(
-                imageUrl: article.urlToImage ?? "",
+                imageUrl: article.urlToImage ,
                 errorWidget: (context, url, error) =>
                     const Icon(Icons.error_outline, color: Colors.red),
                 height: context.height * .25,
@@ -42,7 +42,7 @@ class NewsCard extends StatelessWidget {
             ),
             10.verticalSpace(),
             Text(
-              article.title ?? "",
+              article.title ,
               textAlign: .start,
               style: context.textTheme.bodyLarge,
             ),
@@ -52,12 +52,12 @@ class NewsCard extends StatelessWidget {
               children: [
                 Expanded(
                   child: Text(
-                    "By : ${article.author ?? "Unknown"}",
+                    "By : ${article.author}",
                     style: context.textTheme.bodyMedium,
                   ),
                 ),
                 Text(
-                  getDateOnly(article.publishedAt ?? ""),
+                  getDateOnly(article.publishedAt ),
                   style: context.textTheme.bodyMedium,
                 ),
               ],
@@ -82,7 +82,7 @@ class NewsCard extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadiusGeometry.all(Radius.circular(8)),
             child: CachedNetworkImage(
-              imageUrl: article.urlToImage ?? "",
+              imageUrl: article.urlToImage,
               errorWidget: (context, url, error) =>
                   const Icon(Icons.error_outline, color: Colors.red),
               height: context.height * .25,
@@ -93,7 +93,7 @@ class NewsCard extends StatelessWidget {
           10.verticalSpace(),
           Expanded(
             child: Text(
-              article.description ?? "",
+              article.description ,
               textAlign: .start,
               overflow: .ellipsis,
               maxLines: 5,
@@ -104,7 +104,7 @@ class NewsCard extends StatelessWidget {
           ),
           ElevatedButton(
             onPressed: () {
-              openMyLink(article.url ?? "");
+              openMyLink(article.url );
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: context.primaryColor,

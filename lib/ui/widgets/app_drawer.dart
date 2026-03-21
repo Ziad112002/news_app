@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:news/ui/providers/theme_provider.dart';
 import 'package:news/ui/utils/app_assets.dart';
 import 'package:news/ui/utils/app_colors.dart';
+import 'package:news/ui/utils/app_routes.dart';
 import 'package:provider/provider.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -37,13 +38,13 @@ class AppDrawer extends StatelessWidget {
             child: Column(
               crossAxisAlignment: .stretch,
               children: [
-                buildDrawerActions(AppAssets.homeIcon, "Go To Home"),
+                buildDrawerActions(AppAssets.homeIcon, "Go To Home",context),
                 Divider(
                   height: MediaQuery.of(context).size.height * .056,
                   color: AppColors.white,
                   thickness: 1.5,
                 ),
-                buildDrawerActions(AppAssets.modeIcon, "Theme"),
+                buildDrawerActions(AppAssets.modeIcon, "Theme",context),
                 SizedBox(height: MediaQuery.of(context).size.height * .01),
                 DropdownButtonFormField(
                   initialValue: themeProvider.themeMode,
@@ -78,12 +79,6 @@ class AppDrawer extends StatelessWidget {
                     if (value != null) themeProvider.changeMode(value);
                   },
                 ),
-                Divider(
-                  thickness: 1.5,
-                  height: MediaQuery.of(context).size.height * .056,
-                  color: AppColors.white,
-                ),
-                buildDrawerActions(AppAssets.languageIcon, "Language"),
               ],
             ),
           ),
@@ -92,16 +87,21 @@ class AppDrawer extends StatelessWidget {
     );
   }
 
-  Row buildDrawerActions(String imagePath, String text) => Row(
+  Row buildDrawerActions(String imagePath, String text,BuildContext context) => Row(
     children: [
       ImageIcon(AssetImage(imagePath), color: AppColors.white),
       SizedBox(width: 8),
-      Text(
-        text,
-        style: TextStyle(
-          fontSize: 20,
-          color: AppColors.white,
-          fontWeight: FontWeight.bold,
+      InkWell(
+        onTap: (){
+          Navigator.pushReplacement(context, AppRoutes.categoriesScreen);
+        },
+        child: Text(
+          text,
+          style: TextStyle(
+            fontSize: 20,
+            color: AppColors.white,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
     ],

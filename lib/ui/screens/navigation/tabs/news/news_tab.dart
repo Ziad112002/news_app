@@ -1,13 +1,7 @@
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:news/data/mapper/sources_mapper.dart';
-import 'package:news/data/repository/news_repository/data_sources/local_data_source.dart';
-import 'package:news/data/repository/news_repository/data_sources/remote_data_source.dart';
-import 'package:news/data/repository/news_repository/news_repository.dart';
 import 'package:news/di/di.dart';
 import 'package:news/domain/model/source.dart';
-import 'package:news/domain/use_case/load_source_use_case.dart';
 import 'package:news/ui/utils/extensions/context_extension.dart';
 import 'package:news/ui/utils/resource.dart';
 import 'news_list.dart';

@@ -1,9 +1,9 @@
-import 'article.dart';
+import 'remote_article.dart';
 
 class ArticleResponse {
   String? status;
   int? totalResults;
-  List<Article>? articles;
+  List<RemoteArticle>? articles;
 
   ArticleResponse({
     this.status,
@@ -16,7 +16,7 @@ class ArticleResponse {
       status: json['status'] as String?,
       totalResults: json['totalResults'] as int?,
       articles: (json['articles'] as List<dynamic>?)
-          ?.map((e) => Article.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => RemoteArticle.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
   }

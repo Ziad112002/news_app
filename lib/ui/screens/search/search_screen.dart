@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:news/domain/model/article.dart';
 import 'package:news/ui/providers/int_extension.dart';
 import 'package:news/ui/utils/app_assets.dart';
 import 'package:news/ui/utils/extensions/context_extension.dart';
-import '../../../data/models/article.dart';
 import '../navigation/tabs/news/news_card.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -53,7 +53,7 @@ class _SearchScreenState extends State<SearchScreen> {
             filteredArticles=Article.currentArticles;
           }else{
             filteredArticles = Article.currentArticles.where((article) {
-              final title = article.title?.toLowerCase() ?? "";
+              final title = article.title.toLowerCase();
               return title.contains(value);
             }).toList();
           }

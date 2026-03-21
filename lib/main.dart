@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:news/data/repository/news_repository/data_articles/local_data_articles.dart';
-import 'package:news/data/repository/news_repository/data_sources/local_data_source.dart';
 import 'package:news/di/di.dart';
 import 'package:news/ui/providers/theme_provider.dart';
 import 'package:news/ui/screens/categories/categories_screen.dart';
 import 'package:news/ui/utils/app_themes.dart';
 import 'package:provider/provider.dart';
+import 'data/repository/news_repository/data_sources/adapters.dart';
 
 void main() {
   initDependencies();

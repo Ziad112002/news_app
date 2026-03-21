@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:news/data/models/article.dart';
+import 'package:news/data/models/remote_article.dart';
 import 'package:news/data/models/article_response.dart';
 import 'package:news/data/models/remote_source.dart';
 import 'package:news/data/models/sources_response.dart';
@@ -25,7 +25,7 @@ abstract final class ApiManager {
     throw "Something Went Wrong Please Try Again Later!!!";
   }
 
-  static Future<List<Article>> loadNewsArticles(String sourceId) async {
+  static Future<List<RemoteArticle>> loadNewsArticles(String sourceId) async {
     final dio = Dio();
     Response response = await dio.get(
       "$baseUrl$articleEndpoint?apiKey=$apiKey&sources=$sourceId",

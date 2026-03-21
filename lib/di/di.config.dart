@@ -18,10 +18,15 @@ import '../apis/api_client.dart' as _i588;
 import '../data/mapper/sources_mapper.dart' as _i1018;
 import '../data/repository/news_repository/data_sources/local_data_source.dart'
     as _i958;
+import '../data/repository/news_repository/data_sources/local_data_source_impl.dart'
+    as _i108;
 import '../data/repository/news_repository/data_sources/remote_data_source.dart'
     as _i789;
+import '../data/repository/news_repository/data_sources/remote_data_source_impl.dart'
+    as _i10;
 import '../data/repository/news_repository/news_repository.dart' as _i592;
 import '../domain/repository/news_repository.dart' as _i263;
+import '../domain/use_case/load_articles_use_case.dart' as _i401;
 import '../domain/use_case/load_source_use_case.dart' as _i1012;
 import '../ui/screens/navigation/tabs/news/news_view_model.dart' as _i451;
 import 'get_it_module.dart' as _i1015;
@@ -34,29 +39,33 @@ extension GetItInjectableX on _i174.GetIt {
   }) {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final getItModule = _$GetItModule();
-    gh.factory<_i1018.SourcesMapper>(() => _i1018.SourcesMapper());
+    gh.factory<_i1018.Mapper>(() => _i1018.Mapper());
     gh.factory<_i895.Connectivity>(() => getItModule.getConnectivity());
     gh.factory<_i361.Dio>(() => getItModule.getDio());
-    gh.factory<_i958.LocalDataSource>(() => _i958.LocalDataSourceImpl());
+    gh.factory<_i958.LocalDataSource>(() => _i108.LocalDataSourceImpl());
     gh.factory<_i588.ApiClient>(() => _i588.ApiClient(gh<_i361.Dio>()));
     gh.factory<_i789.RemoteDataSource>(
-      () => _i789.RemoteDataSourceImpl(gh<_i588.ApiClient>()),
+      () => _i10.RemoteDataSourceImpl(gh<_i588.ApiClient>()),
     );
     gh.factory<_i263.NewsRepository>(
       () => _i592.NewsRepositoryImpl(
         localDataSource: gh<_i958.LocalDataSource>(),
         remoteDataSource: gh<_i789.RemoteDataSource>(),
         connectivity: gh<_i895.Connectivity>(),
-        mapper: gh<_i1018.SourcesMapper>(),
+        mapper: gh<_i1018.Mapper>(),
       ),
     );
     gh.factory<_i1012.LoadSourceUseCase>(
       () =>
           _i1012.LoadSourceUseCase(newsRepository: gh<_i263.NewsRepository>()),
     );
+    gh.factory<_i401.LoadArticlesUseCase>(
+      () => _i401.LoadArticlesUseCase(gh<_i263.NewsRepository>()),
+    );
     gh.factory<_i451.NewsViewModel>(
       () => _i451.NewsViewModel(
-        loadSourceUseCase: gh<_i1012.LoadSourceUseCase>(),
+        gh<_i1012.LoadSourceUseCase>(),
+        gh<_i401.LoadArticlesUseCase>(),
       ),
     );
     return this;
